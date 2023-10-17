@@ -28,6 +28,14 @@ export async function onDocumentReady(firebaseApp) {
   const auth = firebaseApp.auth();
   const db = firebaseApp.firestore();
 
+  // This doesn't appear to be working anymore. Via the Chrome Console, the auth library recommended updating the
+  // import in index.html to include useEmulator=true
+  // if (location.hostname === "127.0.0.1") {
+  //   console.log("127.0.0.1 detected!");
+  //   connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  //   db.useEmulator("http://127.0.0.1:8080");
+  // }
+
   const homePage = new HomePage(db, auth);
   mount(document.body, homePage);
 }
