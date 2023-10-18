@@ -38,5 +38,6 @@ exports.calculateCart = functions
           itemCount
         });
       } catch(err) {
+        console.log(`Error updating cart: ${err}`);
       }
     });
