@@ -41,3 +41,32 @@ exports.calculateCart = functions
         console.log(`Error updating cart: ${err}`);
       }
     });
+
+  exports.updateImage = functions
+  .firestore.document("items/{itemId}")
+  .onCreate(async (snapshot, context) => {
+    console.log(`onCreate: ${snapshot.ref.path}`);
+    console.log(snapshot.data());
+    if (snapshot.data().imageUrl.includes("placeimg.com")) {
+      const itemRef = db.collection("items").doc(context.params.itemId);
+      const imageUrl = `https://picsum.photos/300/400?random=${Math.random()}`;
+      await itemRef.update({
+        imageUrl
+      });
+    }
+  });
+
+  exports.updateAllImages = functions.pubsub.topic("update-images").onPublish(async (message) => {
+    console.log(`onPublish: ${message}`);
+    const itemsRef = db.collection("items");
+    const items = await itemsRef.get();
+    items.forEach(async (item) => {
+      if (item.data().imageUrl.includes("placeimg.com")) {
+        const itemRef = db.collection("items").doc(item.id);
+        const imageUrl = `https://picsum.photos/300/400?random=${Math.random()}`;
+        await itemRef.update({
+          imageUrl
+        });
+      }
+    });
+  });
