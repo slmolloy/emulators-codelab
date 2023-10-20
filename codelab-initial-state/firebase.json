@@ -28,7 +28,7 @@
       "port": 5002
     },
     "pubsub": {
-      "port": 8085
+      "port": 8086
     },
     "ui": {
       "enabled": true
