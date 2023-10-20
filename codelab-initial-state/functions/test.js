@@ -179,7 +179,7 @@ describe("shopping cart items", async () => {
   });
 });
 
-describe.skip("adding an item to the cart recalculates the cart total. ", () => {
+describe("adding an item to the cart recalculates the cart total. ", () => {
   const admin = firebase.initializeAdminApp({ 
     projectId: REAL_FIREBASE_PROJECT_ID 
   }).firestore();
@@ -222,7 +222,7 @@ describe.skip("adding an item to the cart recalculates the cart total. ", () => 
           // Call the function returned by `onSnapshot` to unsubscribe from updates
           unsubscribe();
           resolve();
-        };
+        }
       });
     });
   });
